@@ -9,7 +9,7 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
 > [!NOTE]
-> 遇到错误提示输入 y 回车即可。
+> 遇到错误提示输入 y 回车即可。安装完成后需要重启终端。
 
 ## Usage
 
