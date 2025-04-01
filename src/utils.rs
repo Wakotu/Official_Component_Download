@@ -1,5 +1,6 @@
 use color_eyre::eyre::Result;
 use colored::*;
+use reqwest::Url;
 
 fn my_format(
     write: &mut dyn std::io::Write,
@@ -34,4 +35,9 @@ pub fn init_report_utils() -> Result<()> {
     init_flexi_logger()?;
     color_eyre::install()?;
     Ok(())
+}
+
+pub fn is_absolute_url(url: &str) -> bool {
+    let url_par = Url::parse(url);
+    url_par.is_ok()
 }

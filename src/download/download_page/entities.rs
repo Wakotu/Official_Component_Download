@@ -11,12 +11,16 @@ pub struct PageAns {
 }
 
 impl PageAns {
-    pub async fn get_url(&self) -> Result<Option<Url>> {
+    pub async fn get_valid_url(&self) -> Result<Option<String>> {
         if !self.available || self.site_url.is_none() {
             log::warn!("component {} is not available", self.component_name);
             return Ok(None);
         }
-        let url = Url::parse(self.site_url.as_ref().unwrap())?;
+        if self.site_url.is_none() {
+            return Ok(None);
+        }
+
+        let url = self.site_url.as_ref().unwrap().clone();
         if !Self::is_url_accessible(&url).await || !Self::is_official_url(&url)? {
             log::warn!("component {} is not available", self.component_name);
             return Ok(None);
@@ -24,10 +28,10 @@ impl PageAns {
         Ok(Some(url))
     }
 
-    async fn is_url_accessible(url: &Url) -> bool {
+    async fn is_url_accessible(url: &str) -> bool {
         let client = Client::new();
         let response = client
-            .request(Method::HEAD, url.clone()) // Use HEAD request for efficiency
+            .request(Method::HEAD, url) // Use HEAD request for efficiency
             .timeout(std::time::Duration::from_secs(10)) // Optional: Set a timeout
             .send()
             .await;
@@ -39,8 +43,9 @@ impl PageAns {
         }
     }
 
-    fn is_official_url(url: &Url) -> Result<bool> {
-        let host_str = url.host_str();
+    fn is_official_url(url: &str) -> Result<bool> {
+        let url_par = Url::parse(url)?;
+        let host_str = url_par.host_str();
         match host_str {
             None => {
                 log::warn!("Failed to get host part of the url: {:?}", url);

@@ -30,7 +30,7 @@ pub fn get_model_id() -> &'static str {
     &config.api.model_id
 }
 
-pub fn get_parralel() -> &'static usize {
+pub fn get_parralel_count() -> usize {
     let config = load_config();
-    &config.api.parallel
+    config.api.parallel
 }

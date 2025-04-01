@@ -6,7 +6,7 @@ use sanitize::sanitize_ans;
 use serde_json::json;
 use tokio::sync::Semaphore;
 
-use crate::llm_api::{config::get_parralel, get_llm_completion};
+use crate::llm_api::{config::get_parralel_count, get_llm_completion};
 use entities::PageAns;
 
 pub mod entities;
@@ -43,7 +43,7 @@ fn get_prompt_for_comp(comp_name: &str) -> Result<String> {
     Ok(prmp)
 }
 
-pub async fn get_download_page(comp_name: &str) -> Result<Option<Url>> {
+pub async fn get_download_page(comp_name: &str) -> Result<Option<String>> {
     log::info!("query download page url for {}", comp_name);
     let query = get_prompt_for_comp(comp_name)?;
     let ans = get_llm_completion(&query).await?;
@@ -51,17 +51,17 @@ pub async fn get_download_page(comp_name: &str) -> Result<Option<Url>> {
     log::debug!("Query Ans: {}", ans);
     let ans: PageAns = serde_json::from_str(&ans)?;
     log::info!("query for {} finished", comp_name);
-    ans.get_url().await
+    ans.get_valid_url().await
 }
 
-async fn page_worker(comp_name: &str, semp: &Semaphore) -> Result<Option<Url>> {
+async fn page_worker(comp_name: &str, semp: &Semaphore) -> Result<Option<String>> {
     let _permit = semp.acquire().await?;
     let url_op = get_download_page(comp_name).await?;
     Ok(url_op)
 }
 
-pub async fn get_download_page_batch(comp_name_list: &[&str]) -> Result<Vec<Url>> {
-    let max_concur = *get_parralel();
+pub async fn get_download_page_batch(comp_name_list: &[&str]) -> Result<Vec<String>> {
+    let max_concur = get_parralel_count();
     let semp = Arc::new(Semaphore::new(max_concur));
     let mut hdl_set = vec![];
     let mut url_list = vec![];
