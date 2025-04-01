@@ -8,6 +8,9 @@
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
+> [!NOTE]
+> 遇到错误提示输入 y 回车即可。
+
 ## Usage
 
 将 `config/config.toml` 中的 `username` 值修改为你的名字
