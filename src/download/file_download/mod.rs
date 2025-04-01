@@ -1,4 +1,5 @@
 use std::{
+    io::Write,
     path::{Path, PathBuf},
     sync::Arc,
 };
@@ -15,6 +16,22 @@ use tokio::{io::AsyncWriteExt, sync::Semaphore};
 pub mod path;
 
 impl DLEntryPool {
+    fn get_download_link_file_path(&self) -> Result<PathBuf> {
+        let comp_dir = self.entries[0].get_comp_dir()?;
+        let fpath = comp_dir.join("downloadlinks.txt");
+        Ok(fpath)
+    }
+
+    fn write_download_links(&self) -> Result<()> {
+        let fpath = self.get_download_link_file_path()?;
+        let mut file = std::fs::File::create(&fpath)?;
+
+        for ent in self.entries.iter() {
+            writeln!(file, "{}: {}", ent.fname_ext, ent.url)?;
+        }
+        Ok(())
+    }
+
     pub async fn download(&self) -> Result<()> {
         let mut hdl_set = vec![];
         let smph = Arc::new(construct_semaphore());
@@ -27,6 +44,7 @@ impl DLEntryPool {
         for hdl in hdl_set {
             let _ = hdl.await;
         }
+        self.write_download_links()?;
         Ok(())
     }
 }
@@ -38,15 +56,23 @@ impl DLEntry {
         Ok(())
     }
 
-    fn get_comp_download_path(&self) -> Result<PathBuf> {
+    fn get_comp_dir(&self) -> Result<PathBuf> {
         let ofi_dir = get_offical_dl_dir()?;
-        Ok(ofi_dir.join(&self.comp_name))
+        let comp_dir = ofi_dir.join(&self.comp_name);
+        create_dir_if_nonexist(&comp_dir)?;
+        Ok(comp_dir)
+    }
+
+    fn get_comp_repo_dir(&self) -> Result<PathBuf> {
+        let comp_dir = self.get_comp_dir()?;
+        let repo_dir = comp_dir.join("repos");
+        create_dir_if_nonexist(&repo_dir)?;
+        Ok(repo_dir)
     }
 
     fn get_download_path(&self) -> Result<PathBuf> {
-        let comp_dir = self.get_comp_download_path()?;
-        create_dir_if_nonexist(&comp_dir)?;
-        Ok(comp_dir.join(&self.fname_ext))
+        let repo_dir = self.get_comp_repo_dir()?;
+        Ok(repo_dir.join(&self.fname_ext))
     }
 
     async fn download(&self) -> Result<()> {
