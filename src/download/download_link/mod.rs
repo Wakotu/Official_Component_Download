@@ -1,4 +1,4 @@
-use std::{ascii::AsciiExt, str::FromStr, sync::Arc};
+use std::{str::FromStr, sync::Arc};
 
 use crate::{
     config::get_ver_cnt,
@@ -88,6 +88,7 @@ fn get_all_links(page_content: &str, url: &str) -> Result<Vec<String>> {
 }
 
 pub struct DLEntryPool {
+    pub comp_name: String,
     pub entries: Vec<DLEntry>,
 }
 
@@ -172,7 +173,10 @@ Please reply with a simple 'yes' or 'no'.
     pub async fn from_page_url(page_url: &str, comp_name: &str) -> Result<Self> {
         let content = get_page_content(page_url).await?;
         let url_list = get_all_links(&content, page_url)?;
-        let mut pool = Self { entries: vec![] };
+        let mut pool = Self {
+            entries: vec![],
+            comp_name: comp_name.to_string(),
+        };
 
         let mut hdl_set = vec![];
         let smph = Arc::new(construct_semaphore());
@@ -224,7 +228,10 @@ Please reply with a simple 'yes' or 'no'.
             comp_name
         );
         log::debug!("Download entries: {:?}", entries);
-        let res_pool = Self { entries };
+        let res_pool = Self {
+            entries,
+            comp_name: comp_name.to_string(),
+        };
 
         Ok(res_pool)
     }
