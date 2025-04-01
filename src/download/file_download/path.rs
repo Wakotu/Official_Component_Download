@@ -69,6 +69,13 @@ fn get_sub_dir_name_list(dir: &Path) -> Result<Vec<String>> {
     Ok(name_list)
 }
 
+pub fn create_dir_if_nonexist(dir: &Path) -> Result<()> {
+    if !dir.is_dir() {
+        fs::create_dir_all(dir)?;
+    }
+    Ok(())
+}
+
 pub fn get_download_comp_name_list() -> Result<Vec<String>> {
     let gh_dir = get_github_dl_dir()?;
     let res = get_sub_dir_name_list(&gh_dir)?;

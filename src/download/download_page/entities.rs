@@ -21,14 +21,31 @@ impl PageAns {
         }
 
         let url = self.site_url.as_ref().unwrap().clone();
-        if !Self::is_url_accessible(&url).await || !Self::is_official_url(&url)? {
-            log::warn!("component {} is not available", self.component_name);
+        let (flag, url_op) = Self::is_url_accessible(&url).await;
+        if !flag {
+            log::warn!(
+                "url {} of component {} is not accessible",
+                url,
+                self.component_name
+            );
             return Ok(None);
         }
-        Ok(Some(url))
+
+        let res_url = url_op.unwrap();
+
+        if !Self::is_official_url(&res_url)? {
+            log::warn!(
+                "url {url} of component {} is not url of official site",
+                self.component_name
+            );
+            return Ok(None);
+        }
+        log::info!("url for component {} if {}", self.component_name, res_url);
+        Ok(Some(res_url))
     }
 
-    async fn is_url_accessible(url: &str) -> bool {
+    /// return accessibility along with resutl url
+    async fn is_url_accessible(url: &str) -> (bool, Option<String>) {
         let client = Client::new();
         let response = client
             .request(Method::HEAD, url) // Use HEAD request for efficiency
@@ -37,9 +54,10 @@ impl PageAns {
             .await;
 
         if let Ok(resp) = response {
-            resp.status().is_success()
+            let url = resp.url().to_string();
+            (resp.status().is_success(), Some(url))
         } else {
-            false
+            (false, None)
         }
     }
 

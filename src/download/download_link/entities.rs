@@ -18,10 +18,10 @@ impl DLEntry {
 
     fn match_last_path(ext_fname: &str, re: &Regex, url: &str, comp_name: &str) -> Option<Self> {
         let mat = re.find(ext_fname)?;
-        let fname = mat.as_str();
+        let ver = mat.as_str();
         Some(Self {
             url: url.to_string(),
-            fname: fname.to_string(),
+            fname: format!("{}-{}", comp_name, ver),
             fname_ext: ext_fname.to_string(),
             comp_name: comp_name.to_string(),
         })
@@ -31,7 +31,7 @@ impl DLEntry {
         let url_par = Url::parse(url)?;
         match Self::get_last_path(&url_par) {
             Some(ext_fname) => {
-                let re = Regex::new(r"\w+-\d+(\.\d+)+")?;
+                let re = Regex::new(r"\d+(\.\d+)*")?;
                 let ent_op = Self::match_last_path(ext_fname, &re, url, comp_name);
                 Ok(ent_op)
             }

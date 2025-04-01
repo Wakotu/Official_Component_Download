@@ -1,4 +1,4 @@
-use std::{str::FromStr, sync::Arc};
+use std::{ascii::AsciiExt, str::FromStr, sync::Arc};
 
 use crate::{
     config::get_ver_cnt,
@@ -27,7 +27,16 @@ Please reply with a simple yes or no.
     });
     let prmp = reg.render_template(prompt_tempalate, &data)?;
     let ans = get_llm_completion(&prmp).await?;
-    Ok(ans.to_lowercase().contains("yes"))
+
+    let flag = ans.to_lowercase().contains("yes");
+
+    #[cfg(debug_assertions)]
+    {
+        if url.eq("https://github.com/opencv/opencv/archive/refs/tags/4.11.0.zip") {
+            log::warn!("opencv link related check: {}, ans: {}", url, flag);
+        }
+    }
+    Ok(flag)
 }
 
 async fn get_page_content(page_url: &str) -> Result<String> {
@@ -60,7 +69,7 @@ fn transform_href(href: &str, url: &str) -> Result<String> {
 }
 
 fn get_all_links(page_content: &str, url: &str) -> Result<Vec<String>> {
-    log::info!("get links for page {}", url);
+    log::info!("start to get links for page {}", url);
     let doc = Html::parse_document(page_content);
     let sltr = Selector::parse("a").unwrap_or_else(|e| {
         panic!("Faield to construct a css selector: {e}");
@@ -124,7 +133,17 @@ Please reply with a simple 'yes' or 'no'.
         });
         let prmp = reg.render_template(prompt_tempalate, &data)?;
         let ans = get_llm_completion(&prmp).await?;
-        Ok(ans.to_lowercase().contains("yes"))
+
+        let flag = ans.to_lowercase().contains("yes");
+
+        #[cfg(debug_assertions)]
+        {
+            if url.eq("https://github.com/opencv/opencv/archive/refs/tags/4.11.0.zip") {
+                log::warn!("opencv link source check: {}, ans: {}", url, flag);
+            }
+        }
+
+        Ok(flag)
     }
 
     async fn filter_url_worker(
@@ -140,6 +159,13 @@ Please reply with a simple 'yes' or 'no'.
         }
 
         let ent = DLEntry::from_url(url, comp_name)?;
+
+        #[cfg(debug_assertions)]
+        {
+            if url.eq("https://github.com/opencv/opencv/archive/refs/tags/4.11.0.zip") {
+                log::warn!("ent for opencv-411zip: {:?}", ent);
+            }
+        }
         Ok(ent)
     }
 
@@ -170,6 +196,15 @@ Please reply with a simple 'yes' or 'no'.
                     continue;
                 }
                 Some(ent) => {
+                    #[cfg(debug_assertions)]
+                    {
+                        if ent
+                            .url
+                            .eq("https://github.com/opencv/opencv/archive/refs/tags/4.11.0.zip")
+                        {
+                            log::warn!("ent passed in join  for opencv-411zip: {:?}", ent);
+                        }
+                    }
                     pool.push_ent(ent);
                 }
             }
@@ -183,7 +218,11 @@ Please reply with a simple 'yes' or 'no'.
         } else {
             pool.entries.clone()
         };
-        log::info!("{} download entries collected.", entries.len());
+        log::info!(
+            "{} download entries collected for {}",
+            entries.len(),
+            comp_name
+        );
         log::debug!("Download entries: {:?}", entries);
         let res_pool = Self { entries };
 

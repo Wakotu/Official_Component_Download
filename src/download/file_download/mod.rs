@@ -8,10 +8,9 @@ use crate::utils::construct_semaphore;
 use super::download_link::{DLEntryPool, entities::DLEntry};
 use color_eyre::eyre::Result;
 use eyre::bail;
-use futures::StreamExt;
-use path::get_offical_dl_dir;
+use path::{create_dir_if_nonexist, get_offical_dl_dir};
 use reqwest::Client;
-use tokio::sync::Semaphore;
+use tokio::{io::AsyncWriteExt, sync::Semaphore};
 
 pub mod path;
 
@@ -46,6 +45,7 @@ impl DLEntry {
 
     fn get_download_path(&self) -> Result<PathBuf> {
         let comp_dir = self.get_comp_download_path()?;
+        create_dir_if_nonexist(&comp_dir)?;
         Ok(comp_dir.join(&self.fname_ext))
     }
 
@@ -56,7 +56,7 @@ impl DLEntry {
     }
 
     async fn download_file(url: &str, fpath: &Path) -> Result<()> {
-        log::debug!("Download {} to {:?}", url, fpath);
+        log::info!("Download {} to {:?}", url, fpath);
         let cli = Client::new();
         let resp = cli.get(url).send().await?;
 
@@ -64,12 +64,10 @@ impl DLEntry {
             bail!("Failed to download {}", url);
         }
 
-        let mut bytes_stream = resp.bytes_stream();
+        let mut file = tokio::fs::File::create(fpath).await?;
+        let content = resp.bytes().await?;
+        file.write_all(&content).await?;
 
-        while let Some(chk) = bytes_stream.next().await {
-            let chk = chk?;
-            tokio::fs::write(fpath, &chk).await?;
-        }
         Ok(())
     }
 }
