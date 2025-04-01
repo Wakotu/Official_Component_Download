@@ -1,3 +1,3 @@
 #!/bin/bash
 
-cargo run -r --bin download
+RUST_LOG=info cargo run -r --bin download
