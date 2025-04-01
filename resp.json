@@ -1,0 +1,465 @@
+{
+  "id": "0217434948348095a0d624fcca0b71a070616d09ff912a4180ee3",
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "根据您的问题“5 + 8”，结合参考内容中的相关信息，以下是详细解答：\n\n1. **计算结果**  \n   5 + 8 = 13。这一结果在多个参考内容中得到确认，例如：\n   - 摘要1明确指出“5+8=13”[1]。\n   - 摘要5的选项中也提供了正确答案“C. 13”[5]。\n   - 摘要7直接给出了答案“13”[7]。\n\n2. **解析**  \n   这是一个基础的加法运算，5和8相加的结果是13。这一计算过程简单且无需额外步骤。\n\n3. **其他相关信息**  \n   - 如果您需要进一步练习类似的加法运算，可以参考摘要3和摘要6，其中提供了更多加法题目[3][6]。\n   - 如果您对如何用英语表达这个问题感兴趣，可以参考摘要9，其中提到“What’s five plus eight?”是正确的表达方式[9]。\n\n**参考资料**  \n[1] 【题目】5+8=_______()A.elevenB.thirteen-精英家教网  \n[3] 5+8= 6+5= 6+7= 3+8= 5+9= 7+8= 9+6= 2+9=-精英家教网  \n[5] (题目)5+8=( )A.6B.8C.13D.15-精英家教网  \n[6] 【题目】看一看，填一填。5+6=5+7=5+8=-精英家教网  \n[7] 5+8=( ) 题目和参考答案——青夏教育精英家教网——-精英家教网  \n[9] 【题目】你想问“5+8=?”应说:( )-精英家教网",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1743494853,
+  "model": "deepseek-v3-241226",
+  "object": "chat.completion",
+  "bot_usage": {
+    "model_usage": [
+      {
+        "name": "ep-20250317172204-mr57z",
+        "prompt_tokens": 2490,
+        "completion_tokens": 374,
+        "total_tokens": 2864
+      }
+    ],
+    "action_usage": [{ "action_name": "content_plugin", "count": 1 }],
+    "action_details": [
+      {
+        "name": "content_plugin",
+        "count": 1,
+        "tool_details": [
+          {
+            "name": "search",
+            "input": {
+              "queries": ["5 + 8"],
+              "source_type": ["search_engine"],
+              "offset": 0,
+              "count": 10,
+              "account_id": 2102506761,
+              "video_token": ""
+            },
+            "output": {
+              "type": "tool",
+              "data": {
+                "status_code": 200,
+                "data": {
+                  "has_more": true,
+                  "results": [
+                    {
+                      "id": "8b04d718ece47c64-15dbc15cbe046f17",
+                      "source_type": "search_engine",
+                      "site_name": "搜索引擎-精英家教网",
+                      "title": "【题目】5+8=_______()A.elevenB.thirteen-精英家教网",
+                      "summary": "题目内容 【题目】5+8= _______ ( ) A.eleven B.thirteen 试题答案 【答案】B 【解析】 5+8=13，A 是11，B是13，故选B。",
+                      "publish_time": 0,
+                      "url": "http://m.1010jiajiao.com/xxyy/shiti_id_ec11e5f0df06b4fefac5b9357a85bf20",
+                      "cover_image": null,
+                      "search_plugin_data": {
+                        "doc_id": "8b04d718ece47c64-15dbc15cbe046f17",
+                        "logo_url": "https://p3-search.byteimg.com/img/labis/6847e0e385b8f0777f76328916c78de1~noop.jpeg",
+                        "auth_info": "一般权威",
+                        "auth_score": 0.65648,
+                        "rel_info": "强相关",
+                        "rel_score": 0.832394,
+                        "freshness_info": "非常满足时效需求",
+                        "freshness_score": 0.940051,
+                        "final_ref": "",
+                        "final_ref_len": 0,
+                        "author_name": "",
+                        "duration": 0
+                      },
+                      "smart_content_data": null,
+                      "ruyi_data": null
+                    },
+                    {
+                      "id": "61f8c8993cd9ca2e-c0ff256ddd6e9309",
+                      "source_type": "search_engine",
+                      "site_name": "搜索引擎-58同城",
+                      "title": "58同城分类信息网，为你提供房产、招聘、黄页、团购、交友...",
+                      "summary": "58同城分类信息网，为你提供房产、招聘、黄页、团购、交友、二手、宠物、车辆、周边游等海量分类信息，充分满足您免费查看/发布信息的需求。58同 城，最好的分类信息网。",
+                      "publish_time": 0,
+                      "url": "https://m.58.com",
+                      "cover_image": null,
+                      "search_plugin_data": {
+                        "doc_id": "61f8c8993cd9ca2e-c0ff256ddd6e9309",
+                        "logo_url": "",
+                        "auth_info": "非常不权威",
+                        "auth_score": 0,
+                        "rel_info": "不相关",
+                        "rel_score": 0,
+                        "freshness_info": "不满足时效需求",
+                        "freshness_score": 0,
+                        "final_ref": "",
+                        "final_ref_len": 0,
+                        "author_name": "",
+                        "duration": 0
+                      },
+                      "smart_content_data": null,
+                      "ruyi_data": null
+                    },
+                    {
+                      "id": "a4ddcb4719be5f03-614d4ebdaf17f26c",
+                      "source_type": "search_engine",
+                      "site_name": "搜索引擎-精英家教网",
+                      "title": "5+8= 6+5= 6+7= 3+8= 5+9= 7+8= 9+6= 2+9=-精英家教网",
+                      "summary": "5+8=6+5=6+7=3+8= 5+9=7+8=9+6=2+9= 笔算下列各题，看谁最细心． 80-27= 37+29= 100-87= 92-42-23= 78+15-36= 在方框里填数． 填数字．  看图写算式，并计算． 5-1=□ 算一算． 76+5=64+7=43+9=48+6=40+28= 32-5=60+24=53+8=78-2=10+23= 26+5=48-2=54+6=96+8=84-5= 笔算下面各题． 9+26=14+56=37+29=40+54= 15+37=42+26=51+19=60+28= 先摆一摆，再说说你是怎样算的？8+7= ． 看图列式计算． 想一想，做一做 兔妈妈和它的孩子们一共捡了多少个果子？□○□=□",
+                      "publish_time": 0,
+                      "url": "http://m.1010jiajiao.com/xxsx/shiti_page_57740",
+                      "cover_image": null,
+                      "search_plugin_data": {
+                        "doc_id": "a4ddcb4719be5f03-614d4ebdaf17f26c",
+                        "logo_url": "https://p3-search.byteimg.com/img/labis/6847e0e385b8f0777f76328916c78de1~noop.jpeg",
+                        "auth_info": "正常权威",
+                        "auth_score": 0.55044,
+                        "rel_info": "强相关",
+                        "rel_score": 0.863859,
+                        "freshness_info": "非常满足时效需求",
+                        "freshness_score": 0.999999,
+                        "final_ref": "",
+                        "final_ref_len": 0,
+                        "author_name": "",
+                        "duration": 0
+                      },
+                      "smart_content_data": null,
+                      "ruyi_data": null
+                    },
+                    {
+                      "id": "17971f2b7c02db16-4c7c45aa0885313f",
+                      "source_type": "search_engine",
+                      "site_name": "搜索引擎-精英家教网",
+                      "title": "(题目)用你喜欢的方法计算5 + 8 = 第一步: 第二步: 16 - 7",
+                      "summary": "题目内容 【题目】用你喜欢的方法计算 5 ＋8 = 第一步：______________ 第二步：______________ 16 －7 = 第一步：______________ 第二步：______________ 试题答案 【答案】 5+10=15 15-2=13 17-7=10 10-1=9 【解析】 略",
+                      "publish_time": 0,
+                      "url": "http://m.1010jiajiao.com/xxsx/shiti_id_4617cb13d2ec5722a71b9fc8b7b79946",
+                      "cover_image": null,
+                      "search_plugin_data": {
+                        "doc_id": "17971f2b7c02db16-4c7c45aa0885313f",
+                        "logo_url": "https://p3-search.byteimg.com/img/labis/6847e0e385b8f0777f76328916c78de1~noop.jpeg",
+                        "auth_info": "正常权威",
+                        "auth_score": 0.593423,
+                        "rel_info": "相关",
+                        "rel_score": 0.700475,
+                        "freshness_info": "非常满足时效需求",
+                        "freshness_score": 0.918674,
+                        "final_ref": "",
+                        "final_ref_len": 0,
+                        "author_name": "",
+                        "duration": 0
+                      },
+                      "smart_content_data": null,
+                      "ruyi_data": null
+                    },
+                    {
+                      "id": "62057b81f9222c54-6292f1814b9d1ff8",
+                      "source_type": "search_engine",
+                      "site_name": "搜索引擎-精英家教网",
+                      "title": "(题目)5+8=( )A.6B.8C.13D.15-精英家教网",
+                      "summary": "【题目】5＋8=（ ） A. 6 B. 8 C. 13 D. 15 【题目】小虎做一道减法题时，把被减数个位上的6错写成了9，减数十位上的7错写成了1，最后所得的差是577，这道题的正确答案是（_______）。【题目】甲数比乙数大13.05，将乙数的小数点向右移动一位就正好 等于甲数，则甲数是（_____）。【题目】一个圆柱和一个圆锥等底等高，如果圆柱比圆锥的体积多42 dm 3,则圆柱的体积是________，圆锥的体积是________。【题目】长方形的周长等于长加宽的和的2倍．（____） 【题目】长方形的面积=（ ）； 正方形的面积=（ ）。【题目】把表格补充完整．(从左到右填) 被减数 17 9 12 __ 9 16 __ __ 减数 5 __ __ 7 9 __ 5 6 差 __ 4 5 8 __ 3 10 7 【题目】数学书的长是21厘米，宽是14厘米，数学书的周长是 ________厘米 【题目】两个圆柱体高相等，直径的比是5:3，如果较小圆 柱体体积是180cm ，较大圆柱体体积是（ ）cm 3。【题目】到早餐店吃早餐，有包子、油条、烧饼三种早点供选择，最少吃一种，最多吃两种，有 种不同的选择方法．",
+                      "publish_time": 0,
+                      "url": "http://m.1010jiajiao.com/xxsx/shiti_page_185817",
+                      "cover_image": null,
+                      "search_plugin_data": {
+                        "doc_id": "62057b81f9222c54-6292f1814b9d1ff8",
+                        "logo_url": "https://p3-search.byteimg.com/img/labis/6847e0e385b8f0777f76328916c78de1~noop.jpeg",
+                        "auth_info": "正常权威",
+                        "auth_score": 0.550475,
+                        "rel_info": "相关",
+                        "rel_score": 0.714077,
+                        "freshness_info": "非常满足时效需求",
+                        "freshness_score": 0.999999,
+                        "final_ref": "",
+                        "final_ref_len": 0,
+                        "author_name": "",
+                        "duration": 0
+                      },
+                      "smart_content_data": null,
+                      "ruyi_data": null
+                    },
+                    {
+                      "id": "e9b871adb168cda6-2959c242ef2dc4bc",
+                      "source_type": "search_engine",
+                      "site_name": "搜索引擎-精英家教网",
+                      "title": "【题目】看一看，填一填。5+6=5+7=5+8=-精英家教网",
+                      "summary": "【答案】11;12;13 【解析】考查了20以内数的加法，计算时要仔细，并注意观察推算时的规律。",
+                      "publish_time": 0,
+                      "url": "http://m.1010jiajiao.com/xxsx/shiti_id_6b133e59871b8f0449e4fd4f001135c3",
+                      "cover_image": null,
+                      "search_plugin_data": {
+                        "doc_id": "e9b871adb168cda6-2959c242ef2dc4bc",
+                        "logo_url": "https://p3-search.byteimg.com/img/labis/6847e0e385b8f0777f76328916c78de1~noop.jpeg",
+                        "auth_info": "正常权威",
+                        "auth_score": 0.591409,
+                        "rel_info": "相关",
+                        "rel_score": 0.616483,
+                        "freshness_info": "基本满足时效需求",
+                        "freshness_score": 0.872773,
+                        "final_ref": "",
+                        "final_ref_len": 0,
+                        "author_name": "",
+                        "duration": 0
+                      },
+                      "smart_content_data": null,
+                      "ruyi_data": null
+                    },
+                    {
+                      "id": "63026746987c0b52-6353abffab80ac19",
+                      "source_type": "search_engine",
+                      "site_name": "搜索引擎-精英家教网",
+                      "title": "5+8=( ) 题目和参考答案——青夏教育精英家教网——-精英家教网",
+                      "summary": "答案：13",
+                      "publish_time": 0,
+                      "url": "http://m.1010jiajiao.com/xxsx/shiti_id_f5ccfc4b8033aa305d8283bfa66002b4",
+                      "cover_image": null,
+                      "search_plugin_data": {
+                        "doc_id": "63026746987c0b52-6353abffab80ac19",
+                        "logo_url": "https://p3-search.byteimg.com/img/labis/6847e0e385b8f0777f76328916c78de1~noop.jpeg",
+                        "auth_info": "正常权威",
+                        "auth_score": 0.591409,
+                        "rel_info": "强相关",
+                        "rel_score": 0.84412,
+                        "freshness_info": "一般满足时效需求",
+                        "freshness_score": 0.183657,
+                        "final_ref": "",
+                        "final_ref_len": 0,
+                        "author_name": "",
+                        "duration": 0
+                      },
+                      "smart_content_data": null,
+                      "ruyi_data": null
+                    },
+                    {
+                      "id": "7c0f9169ec50e9c5-a43cfe00a716746f",
+                      "source_type": "search_engine",
+                      "site_name": "搜索引擎-精英家教网",
+                      "title": "口算 5+8=( ) 17-9=( ) 13-7=( )——青夏教育精英家教网——",
+                      "summary": "口算 5＋8＝（ ） 17－9＝（ ） 13－7＝（ ） 口算 8＋3＝（ ） 15－8＝（ ） 2＋9＝（ ） 口算 14－8＝（ ） 4＋7＝（ ） 11－9＝（ ） 口算 14－7＝（ ） 18－9＝（ ） 5＋6＝（ ） 口算 12－9＝（ ） 7＋5＝（ ） 14－6＝（ ） 16－9＝（ ） 口算 5＋7＝（ ） 6－6＝（ ） 7＋6＝（ ） 12－6＝（ ） 口算 17－8＝（ ） 4＋8＝（ ） 12－7＝（ ） 4＋9＝（ ） 口算 6＋8＝（ ） 16－8＝（ ） 13－4＝（ ） 3＋9＝（ ） 4＋□＝□ □－9＝□ 13－□＝□ 在○里填“＋”或“－”.（1）12○3＝9 （2）8○8＝16",
+                      "publish_time": 0,
+                      "url": "http://m.1010jiajiao.com/xxsx/shiti_page_76533",
+                      "cover_image": null,
+                      "search_plugin_data": {
+                        "doc_id": "7c0f9169ec50e9c5-a43cfe00a716746f",
+                        "logo_url": "https://p3-search.byteimg.com/img/labis/6847e0e385b8f0777f76328916c78de1~noop.jpeg",
+                        "auth_info": "正常权威",
+                        "auth_score": 0.550485,
+                        "rel_info": "相关",
+                        "rel_score": 0.59035,
+                        "freshness_info": "非常满足时效需求",
+                        "freshness_score": 0.999999,
+                        "final_ref": "",
+                        "final_ref_len": 0,
+                        "author_name": "",
+                        "duration": 0
+                      },
+                      "smart_content_data": null,
+                      "ruyi_data": null
+                    },
+                    {
+                      "id": "c1178d611b630f82-7965d16edc8d9ab4",
+                      "source_type": "search_engine",
+                      "site_name": "搜索引擎-精英家教网",
+                      "title": "【题目】你想问“5+8=?”应说:( )-精英家教网",
+                      "summary": "题目内容 【题目】你想问“5＋8＝?”应说：( ) A. What's five and eighteen?B. What’s five plus eight?试题答案 【答案】B 【解析】 略",
+                      "publish_time": 0,
+                      "url": "http://www.1010jiajiao.com/xxyy/shiti_id_3675b8fef6af170cf24daa4f295f7dd1",
+                      "cover_image": null,
+                      "search_plugin_data": {
+                        "doc_id": "c1178d611b630f82-7965d16edc8d9ab4",
+                        "logo_url": "https://p3-search.byteimg.com/img/labis/6847e0e385b8f0777f76328916c78de1~noop.jpeg",
+                        "auth_info": "正常权威",
+                        "auth_score": 0.5446,
+                        "rel_info": "相关",
+                        "rel_score": 0.598947,
+                        "freshness_info": "非常满足时效需求",
+                        "freshness_score": 0.919677,
+                        "final_ref": "",
+                        "final_ref_len": 0,
+                        "author_name": "",
+                        "duration": 0
+                      },
+                      "smart_content_data": null,
+                      "ruyi_data": null
+                    },
+                    {
+                      "id": "d1a9124e801f0fb5-b8a4b428c11082c7",
+                      "source_type": "search_engine",
+                      "site_name": "搜索引擎-精英家教网",
+                      "title": "口算5+8=——青夏教育精英家教网——-精英家教网",
+                      "summary": "口算 5＋8= 口算 10－2= 口算 8＋8= 口算 15－10= 口算 9－3= 口算 7＋5= 口算 8＋3= 口算 15－5= 口算 9＋8= 口算 6－0=",
+                      "publish_time": 0,
+                      "url": "http://m.1010jiajiao.com/xxsx/shiti_page_78696",
+                      "cover_image": null,
+                      "search_plugin_data": {
+                        "doc_id": "d1a9124e801f0fb5-b8a4b428c11082c7",
+                        "logo_url": "https://p3-search.byteimg.com/img/labis/6847e0e385b8f0777f76328916c78de1~noop.jpeg",
+                        "auth_info": "正常权威",
+                        "auth_score": 0.54845,
+                        "rel_info": "相关",
+                        "rel_score": 0.569547,
+                        "freshness_info": "非常满足时效需求",
+                        "freshness_score": 0.999999,
+                        "final_ref": "",
+                        "final_ref_len": 0,
+                        "author_name": "",
+                        "duration": 0
+                      },
+                      "smart_content_data": null,
+                      "ruyi_data": null
+                    }
+                  ],
+                  "debug_data": { "extra": null },
+                  "log_id": "0217434948348095a0d624fcca0b71a070616d09ff912a4180ee3",
+                  "timing": { "total": 517 }
+                }
+              }
+            },
+            "created_at": 1743494835448,
+            "completed_at": 1743494835989
+          }
+        ]
+      }
+    ]
+  },
+  "metadata": {},
+  "references": [
+    {
+      "url": "http://m.1010jiajiao.com/xxyy/shiti_id_ec11e5f0df06b4fefac5b9357a85bf20",
+      "logo_url": "https://p3-search.byteimg.com/img/labis/6847e0e385b8f0777f76328916c78de1~noop.jpeg",
+      "site_name": "搜索引擎-精英家教网",
+      "title": "【题目】5+8=_______()A.elevenB.thirteen-精英家教网",
+      "summary": "题目内容 【题目】5+8= _______ ( ) A.eleven B.thirteen 试题答案 【答案】B 【解析】 5+8=13，A 是11，B是13，故选B。",
+      "publish_time": "1970年01月01日 08:00:00(CST) 星期四",
+      "extra": {
+        "rel_info": "强相关",
+        "freshness_info": "非 常满足时效需求",
+        "auth_info": "一般权威",
+        "final_ref": ""
+      }
+    },
+    {
+      "url": "https://m.58.com",
+      "logo_url": "",
+      "site_name": "搜索引擎-58同城",
+      "title": "58同城分类信息网，为你提供房产、招聘、黄页、团购、交友...",
+      "summary": "58同城分类信息网，为你提供房产 、招聘、黄页、团购、交友、二手、宠物、车辆、周边游等海量分类信息，充分满足您免费查看/发布信息的需求。58同城，最好的分类信息网。",
+      "publish_time": "1970年01月01日 08:00:00(CST) 星期四",
+      "extra": {
+        "rel_info": "不相关",
+        "freshness_info": "不满足 时效需求",
+        "auth_info": "非常不权威",
+        "final_ref": ""
+      }
+    },
+    {
+      "url": "http://m.1010jiajiao.com/xxsx/shiti_page_57740",
+      "logo_url": "https://p3-search.byteimg.com/img/labis/6847e0e385b8f0777f76328916c78de1~noop.jpeg",
+      "site_name": "搜索引擎-精英家教网",
+      "title": "5+8= 6+5= 6+7= 3+8= 5+9= 7+8= 9+6= 2+9=-精英家教网",
+      "summary": "5+8=6+5=6+7=3+8= 5+9=7+8=9+6=2+9= 笔算下列各题，看谁最细心． 80-27= 37+29= 100-87= 92-42-23= 78+15-36= 在方框里填数． 填数字． 看图写算式，并计算． 5-1=□ 算一算． 76+5=64+7=43+9=48+6=40+28= 32-5=60+24=53+8=78-2=10+23= 26+5=48-2=54+6=96+8=84-5= 笔算下面各题． 9+26=14+56=37+29=40+54= 15+37=42+26=51+19=60+28= 先摆一摆，再说说你是怎样算的？8+7= ． 看图列式计算． 想一想，做一做 兔妈妈和它的孩子们一共捡了多少个果子？□○□=□",
+      "publish_time": "1970年01月01日 08:00:00(CST) 星期四",
+      "extra": {
+        "rel_info": "强相关",
+        "freshness_info": "非常满足时效需求",
+        "auth_info": "正常权威",
+        "final_ref": ""
+      }
+    },
+    {
+      "url": "http://m.1010jiajiao.com/xxsx/shiti_id_4617cb13d2ec5722a71b9fc8b7b79946",
+      "logo_url": "https://p3-search.byteimg.com/img/labis/6847e0e385b8f0777f76328916c78de1~noop.jpeg",
+      "site_name": "搜索引擎-精英家教网",
+      "title": "(题目)用你喜欢的方法计算5 + 8 = 第一步: 第二步: 16 - 7",
+      "summary": "题目内容 【题目】用你喜欢的方法计算 5 ＋8 = 第一步：______________ 第二步：______________ 16 －7 = 第一步：______________ 第二步：______________ 试题答案 【答案】 5+10=15 15-2=13 17-7=10 10-1=9 【解析】 略",
+      "publish_time": "1970年01月01日 08:00:00(CST) 星期四",
+      "extra": {
+        "rel_info": "相关",
+        "freshness_info": "非常满足时效需求",
+        "auth_info": "正常权威",
+        "final_ref": ""
+      }
+    },
+    {
+      "url": "http://m.1010jiajiao.com/xxsx/shiti_page_185817",
+      "logo_url": "https://p3-search.byteimg.com/img/labis/6847e0e385b8f0777f76328916c78de1~noop.jpeg",
+      "site_name": "搜索引擎-精英家教网",
+      "title": "(题目)5+8=( )A.6B.8C.13D.15-精英家教网",
+      "summary": "【题目】5＋8=（ ） A. 6 B. 8 C. 13 D. 15 【题目】小虎做一道减法题时，把被减数个位上的6错写成了9，减数 十位上的7错写成了1，最后所得的差是577，这道题的正确答案是（_______）。【题目】甲数比乙数大13.05，将乙数的小数点向右移动一位就正好等于甲数，则甲数是（_____）。【题目】一个圆柱和一个圆锥等底等高，如果圆柱比圆锥的体积多42 dm 3,则圆柱的体积是________，圆锥的体积是________。【题目】长方形的周长等于长加宽的和的2倍．（____） 【题目】长方形的面积=（ ）； 正方形的面积=（ ）。【题目】把表格补充完整．(从左到右填) 被减数 17 9 12 __ 9 16 __ __ 减数 5 __ __ 7 9 __ 5 6 差 __ 4 5 8 __ 3 10 7 【题目】数学书的长是21厘米，宽是14厘米，数学书的周长是 ________厘米 【题目】两个圆柱体高相等，直径的比是5:3，如果较小圆柱体体积是180cm ，较大圆柱体体积是（ ）cm 3。【题目】到早餐店吃早餐，有包子、油条、烧饼三种早点供选择，最少 吃一种，最多吃两种，有 种不同的选择方法．",
+      "publish_time": "1970年01月01日 08:00:00(CST) 星期四",
+      "extra": {
+        "rel_info": "相关",
+        "freshness_info": "非常满足时效需求",
+        "auth_info": "正常权威",
+        "final_ref": ""
+      }
+    },
+    {
+      "url": "http://m.1010jiajiao.com/xxsx/shiti_id_6b133e59871b8f0449e4fd4f001135c3",
+      "logo_url": "https://p3-search.byteimg.com/img/labis/6847e0e385b8f0777f76328916c78de1~noop.jpeg",
+      "site_name": "搜索引擎-精英家教网",
+      "title": "【题目】看一看，填一填。5+6=5+7=5+8=-精英家教网",
+      "summary": "【答案】11;12;13 【解析】考查了20以内数的加法，计算时要仔细，并注意观察推算时的规律。",
+      "publish_time": "1970年01月01日 08:00:00(CST) 星期四",
+      "extra": {
+        "rel_info": "相关",
+        "freshness_info": "基本满足时效需求",
+        "auth_info": "正常权威",
+        "final_ref": ""
+      }
+    },
+    {
+      "url": "http://m.1010jiajiao.com/xxsx/shiti_id_f5ccfc4b8033aa305d8283bfa66002b4",
+      "logo_url": "https://p3-search.byteimg.com/img/labis/6847e0e385b8f0777f76328916c78de1~noop.jpeg",
+      "site_name": "搜索引擎-精英家教网",
+      "title": "5+8=( ) 题目和参考答案——青夏教育精英家教网——-精英家教网",
+      "summary": "答案：13",
+      "publish_time": "1970年01月01日 08:00:00(CST) 星期四",
+      "extra": {
+        "rel_info": "强相关",
+        "freshness_info": "一般满足时效需求",
+        "auth_info": "正常权威",
+        "final_ref": ""
+      }
+    },
+    {
+      "url": "http://m.1010jiajiao.com/xxsx/shiti_page_76533",
+      "logo_url": "https://p3-search.byteimg.com/img/labis/6847e0e385b8f0777f76328916c78de1~noop.jpeg",
+      "site_name": "搜索引擎-精英家教网",
+      "title": "口算 5+8=( ) 17-9=( ) 13-7=( )——青夏教育精 英家教网——",
+      "summary": "口算 5＋8＝（ ） 17－9＝（ ） 13－7＝（ ） 口算 8＋3＝（ ） 15－8＝（ ） 2＋9＝（ ） 口算 14－8＝（ ） 4＋7＝（ ） 11－9＝（ ） 口算 14－7＝（ ） 18－9＝（ ） 5＋6＝（ ） 口算 12－9＝（ ） 7＋5＝（ ） 14－6＝（ ） 16－9＝（ ） 口算 5＋7＝（ ） 6－6＝（ ） 7＋6＝（ ） 12－6＝（ ） 口算 17－8＝（ ） 4＋8＝（ ） 12－7＝（ ） 4＋9＝（ ） 口算 6＋8＝（ ） 16－8＝（ ） 13－4＝（ ） 3＋9＝（ ） 4＋□＝□ □－9＝□ 13－□＝□ 在○里填“＋”或“－”.（1）12○3＝9 （2）8○8＝16",
+      "publish_time": "1970年01月01日 08:00:00(CST) 星期四",
+      "extra": {
+        "rel_info": "相关",
+        "freshness_info": "非常满足时效需求",
+        "auth_info": "正常权威",
+        "final_ref": ""
+      }
+    },
+    {
+      "url": "http://www.1010jiajiao.com/xxyy/shiti_id_3675b8fef6af170cf24daa4f295f7dd1",
+      "logo_url": "https://p3-search.byteimg.com/img/labis/6847e0e385b8f0777f76328916c78de1~noop.jpeg",
+      "site_name": "搜索引擎-精英家教网",
+      "title": "【题目】你想问“5+8=?”应说:( )-精英家教网",
+      "summary": "题目内容 【题目】你想问“5＋8 ＝?”应说：( ) A. What's five and eighteen?B. What’s five plus eight?试题答案 【答案】B 【解析】 略",
+      "publish_time": "1970年01月01日 08:00:00(CST) 星期四",
+      "extra": {
+        "rel_info": "相关",
+        "freshness_info": "非常满足时效需求",
+        "auth_info": "正常权 威",
+        "final_ref": ""
+      }
+    },
+    {
+      "url": "http://m.1010jiajiao.com/xxsx/shiti_page_78696",
+      "logo_url": "https://p3-search.byteimg.com/img/labis/6847e0e385b8f0777f76328916c78de1~noop.jpeg",
+      "site_name": "搜索引擎-精英家教网",
+      "title": "口算5+8=——青夏教育精英家教网——-精英家教网",
+      "summary": "口算 5＋8= 口算 10－2= 口算 8＋8= 口算 15－10= 口算 9－3= 口算 7＋5= 口算 8＋3= 口算 15－5= 口算 9＋8= 口算 6－0=",
+      "publish_time": "1970年01月01日 08:00:00(CST) 星期四",
+      "extra": {
+        "rel_info": "相关",
+        "freshness_info": "非常满足时效需求",
+        "auth_info": "正常权威",
+        "final_ref": ""
+      }
+    }
+  ]
+}
