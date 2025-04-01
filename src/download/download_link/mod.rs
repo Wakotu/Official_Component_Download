@@ -2,8 +2,8 @@ use std::{str::FromStr, sync::Arc};
 
 use crate::{
     config::get_ver_cnt,
-    llm_api::{config::get_parralel_count, get_llm_completion},
-    utils::is_absolute_url,
+    llm_api::get_llm_completion,
+    utils::{construct_semaphore, is_absolute_url},
 };
 use color_eyre::eyre::Result;
 use entities::DLEntry;
@@ -139,7 +139,7 @@ Please reply with a simple 'yes' or 'no'.
             return Ok(None);
         }
 
-        let ent = DLEntry::from_url(url)?;
+        let ent = DLEntry::from_url(url, comp_name)?;
         Ok(ent)
     }
 
@@ -149,8 +149,7 @@ Please reply with a simple 'yes' or 'no'.
         let mut pool = Self { entries: vec![] };
 
         let mut hdl_set = vec![];
-        let max_concur = get_parralel_count();
-        let smph = Arc::new(Semaphore::new(max_concur));
+        let smph = Arc::new(construct_semaphore());
 
         for url in url_list.iter() {
             let url = url.clone();

@@ -4,9 +4,10 @@ use reqwest::Url;
 
 #[derive(Debug, Clone)]
 pub struct DLEntry {
-    url: String,
-    fname: String,
-    fname_ext: String,
+    pub url: String,
+    pub fname: String,
+    pub fname_ext: String,
+    pub comp_name: String,
 }
 
 impl DLEntry {
@@ -15,22 +16,23 @@ impl DLEntry {
         seg_iter.next_back()
     }
 
-    fn match_last_path(ext_fname: &str, re: &Regex, url: &str) -> Option<Self> {
+    fn match_last_path(ext_fname: &str, re: &Regex, url: &str, comp_name: &str) -> Option<Self> {
         let mat = re.find(ext_fname)?;
         let fname = mat.as_str();
         Some(Self {
             url: url.to_string(),
             fname: fname.to_string(),
             fname_ext: ext_fname.to_string(),
+            comp_name: comp_name.to_string(),
         })
     }
 
-    pub fn from_url(url: &str) -> Result<Option<Self>> {
+    pub fn from_url(url: &str, comp_name: &str) -> Result<Option<Self>> {
         let url_par = Url::parse(url)?;
         match Self::get_last_path(&url_par) {
             Some(ext_fname) => {
                 let re = Regex::new(r"\w+-\d+(\.\d+)+")?;
-                let ent_op = Self::match_last_path(ext_fname, &re, url);
+                let ent_op = Self::match_last_path(ext_fname, &re, url, comp_name);
                 Ok(ent_op)
             }
             None => Ok(None),

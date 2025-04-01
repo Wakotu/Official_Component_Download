@@ -1,12 +1,11 @@
 use std::{str::FromStr, sync::Arc};
 
 use color_eyre::eyre::Result;
-use reqwest::Url;
 use sanitize::sanitize_ans;
 use serde_json::json;
 use tokio::sync::Semaphore;
 
-use crate::llm_api::{config::get_parralel_count, get_llm_completion};
+use crate::{llm_api::get_llm_completion, utils::construct_semaphore};
 use entities::PageAns;
 
 pub mod entities;
@@ -61,8 +60,7 @@ async fn page_worker(comp_name: &str, semp: &Semaphore) -> Result<Option<String>
 }
 
 pub async fn get_download_page_batch(comp_name_list: &[&str]) -> Result<Vec<String>> {
-    let max_concur = get_parralel_count();
-    let semp = Arc::new(Semaphore::new(max_concur));
+    let semp = Arc::new(construct_semaphore());
     let mut hdl_set = vec![];
     let mut url_list = vec![];
 

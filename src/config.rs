@@ -15,6 +15,7 @@ pub struct AppConfig {
 pub struct DLConfig {
     username: String,
     max_version_count: usize,
+    base_dir: String,
 }
 
 pub fn load_config() -> &'static AppConfig {
@@ -33,4 +34,9 @@ pub fn get_ver_cnt() -> usize {
 pub fn get_username() -> &'static str {
     let config = load_config();
     &config.download.username
+}
+
+pub fn get_dl_base_dir() -> &'static str {
+    let config = load_config();
+    &config.download.base_dir
 }

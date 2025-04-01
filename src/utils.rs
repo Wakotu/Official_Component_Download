@@ -1,6 +1,9 @@
 use color_eyre::eyre::Result;
 use colored::*;
 use reqwest::Url;
+use tokio::sync::Semaphore;
+
+use crate::llm_api::config::get_parralel_count;
 
 fn my_format(
     write: &mut dyn std::io::Write,
@@ -40,4 +43,9 @@ pub fn init_report_utils() -> Result<()> {
 pub fn is_absolute_url(url: &str) -> bool {
     let url_par = Url::parse(url);
     url_par.is_ok()
+}
+
+pub fn construct_semaphore() -> Semaphore {
+    let max_concur = get_parralel_count();
+    Semaphore::new(max_concur)
 }

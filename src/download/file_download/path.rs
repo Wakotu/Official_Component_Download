@@ -4,14 +4,12 @@ use std::{
 };
 
 use color_eyre::eyre::Result;
-use eyre::{OptionExt, bail};
+use eyre::bail;
 
-use crate::config::get_username;
-
-const BASE_DIR: &str = "/mnt/opensource_collection";
+use crate::config::{get_dl_base_dir, get_username};
 
 fn get_download_dir() -> Result<PathBuf> {
-    let dir = Path::new(BASE_DIR);
+    let dir = Path::new(get_dl_base_dir());
     let uname = get_username();
     let dl_dir = dir.join(uname);
     if !dl_dir.is_dir() {
@@ -35,7 +33,7 @@ fn get_github_dl_dir() -> Result<PathBuf> {
     Ok(gh_dir)
 }
 
-fn get_offical_dl_dir() -> Result<PathBuf> {
+pub fn get_offical_dl_dir() -> Result<PathBuf> {
     let dl_dir = get_download_dir()?;
     let ofi_dir = dl_dir.join("Official");
     if !ofi_dir.is_dir() {
