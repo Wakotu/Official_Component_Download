@@ -1,5 +1,9 @@
 # Download Opensource Components from Official site
 
+## TODO
+
+- [ ] add functionality to handle 3-step link parsing: official site -> download page -> download link
+
 ## Prerequisites
 
 通过 `rustup` 安装新版本的 `cargo`.
