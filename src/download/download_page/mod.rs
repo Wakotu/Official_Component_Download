@@ -42,7 +42,7 @@ fn get_prompt_for_comp(comp_name: &str) -> Result<String> {
     Ok(prmp)
 }
 
-pub async fn get_download_page(comp_name: &str) -> Result<Option<String>> {
+pub async fn get_download_page(comp_name: &str) -> Result<Option<PageAns>> {
     log::info!("query download page url for {}", comp_name);
     let query = get_prompt_for_comp(comp_name)?;
     let ans = get_llm_completion(&query).await?;
@@ -50,13 +50,13 @@ pub async fn get_download_page(comp_name: &str) -> Result<Option<String>> {
     log::debug!("Query Ans: {}", ans);
     let ans: PageAns = serde_json::from_str(&ans)?;
     log::info!("query for {} finished", comp_name);
-    ans.get_valid_url().await
+    ans.refrac_with_valid_url().await
 }
 
-async fn page_worker(comp_name: &str, semp: &Semaphore) -> Result<Option<String>> {
+async fn page_worker(comp_name: &str, semp: &Semaphore) -> Result<Option<PageAns>> {
     let _permit = semp.acquire().await?;
-    let url_op = get_download_page(comp_name).await?;
-    Ok(url_op)
+    let page_ans = get_download_page(comp_name).await?;
+    Ok(page_ans)
 }
 
 pub async fn get_download_page_batch(comp_name_list: &[&str]) -> Result<Vec<String>> {
@@ -74,7 +74,8 @@ pub async fn get_download_page_batch(comp_name_list: &[&str]) -> Result<Vec<Stri
     for hdl in hdl_set {
         let res = hdl.await?;
         let res = res?;
-        if let Some(url) = res {
+        if let Some(page) = res {
+            let url = page.get_url();
             url_list.push(url);
         }
     }

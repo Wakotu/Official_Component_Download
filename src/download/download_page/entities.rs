@@ -1,9 +1,9 @@
 use color_eyre::eyre::Result;
 use regex::Regex;
 use reqwest::{Client, Method, Url};
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 pub struct PageAns {
     component_name: String,
     available: bool,
@@ -11,7 +11,7 @@ pub struct PageAns {
 }
 
 impl PageAns {
-    pub async fn get_valid_url(&self) -> Result<Option<String>> {
+    pub async fn refrac_with_valid_url(&self) -> Result<Option<PageAns>> {
         if !self.available || self.site_url.is_none() {
             log::warn!("component {} is not available", self.component_name);
             return Ok(None);
@@ -41,7 +41,20 @@ impl PageAns {
             return Ok(None);
         }
         log::info!("url for component {} if {}", self.component_name, res_url);
-        Ok(Some(res_url))
+        Ok(Some(Self {
+            component_name: self.component_name.clone(),
+            available: true,
+            site_url: Some(res_url),
+        }))
+    }
+
+    pub fn get_url(&self) -> String {
+        self.site_url
+            .as_ref()
+            .unwrap_or_else(|| {
+                panic!("Get url from an unavailable PageAns");
+            })
+            .clone()
     }
 
     /// return accessibility along with resutl url

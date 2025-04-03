@@ -2,25 +2,48 @@ pub mod download_link;
 pub mod download_page;
 pub mod file_download;
 
-use std::{str::FromStr, sync::Arc};
+use std::io::{BufWriter, Write};
+use std::{fs, str::FromStr, sync::Arc};
 
 use color_eyre::eyre::Result;
 use download_link::DLEntryPool;
-use download_page::get_download_page;
-use file_download::path::get_download_comp_name_list;
+use download_page::{entities::PageAns, get_download_page};
+use file_download::path::{get_download_comp_name_list, get_official_site_url_file_path};
+use serde::Serialize;
+use serde_json::Serializer;
+use serde_json::ser::PrettyFormatter;
 use tokio::sync::Semaphore;
 
 use crate::utils::construct_semaphore;
 
-async fn download_worker(comp_name: &str, smph: &Semaphore) -> Result<()> {
+async fn download_worker(comp_name: &str, smph: &Semaphore) -> Result<Option<PageAns>> {
     let _permit = smph.acquire().await?;
-    let page_url = get_download_page(comp_name).await?;
-    if page_url.is_none() {
-        return Ok(());
+    let page_ans = get_download_page(comp_name).await?;
+    if page_ans.is_none() {
+        return Ok(None);
     }
-    let page_url = page_url.unwrap();
-    let dl_pool = DLEntryPool::from_page_url(&page_url, comp_name).await?;
+    let page = page_ans.unwrap();
+    let url = page.get_url();
+    let dl_pool = DLEntryPool::from_page_url(&url, comp_name).await?;
     dl_pool.download().await?;
+
+    Ok(Some(page))
+}
+
+fn save_site_url_list(page_ans_list: &[PageAns]) -> Result<()> {
+    let fpath = get_official_site_url_file_path()?;
+
+    let file = fs::File::create(&fpath)?;
+    let mut writer = BufWriter::new(file);
+
+    let fmter = PrettyFormatter::with_indent(b"    ");
+    let mut ser = Serializer::with_formatter(&mut writer, fmter);
+
+    page_ans_list.serialize(&mut ser)?;
+
+    writer.flush()?;
+
+    log::info!("site url list has been written to {:?}", fpath);
 
     Ok(())
 }
@@ -31,6 +54,7 @@ pub async fn download() -> Result<()> {
     log::info!("example components: {:?}", &comp_name_list[0..5]);
     let mut hdl_set = vec![];
     let smph = Arc::new(construct_semaphore());
+    let mut page_ans_list = vec![];
 
     for comp in comp_name_list.iter() {
         let comp_name = String::from_str(comp)?;
@@ -40,8 +64,14 @@ pub async fn download() -> Result<()> {
     }
 
     for hdl in hdl_set {
-        let _ = hdl.await;
+        let res = hdl.await?;
+        let ans_op = res?;
+        if let Some(page_ans) = ans_op {
+            page_ans_list.push(page_ans);
+        }
     }
+
+    save_site_url_list(&page_ans_list)?;
 
     Ok(())
 }

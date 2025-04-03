@@ -45,6 +45,12 @@ pub fn get_offical_dl_dir() -> Result<PathBuf> {
     Ok(ofi_dir)
 }
 
+pub fn get_official_site_url_file_path() -> Result<PathBuf> {
+    let ofi_dir = get_offical_dl_dir()?;
+    let fpath = ofi_dir.join("site_url_list.json");
+    Ok(fpath)
+}
+
 fn get_sub_dir_name_list(dir: &Path) -> Result<Vec<String>> {
     let mut name_list: Vec<String> = vec![];
     let entries = fs::read_dir(dir)?;
