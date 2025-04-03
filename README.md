@@ -2,7 +2,7 @@
 
 ## TODO
 
-- [ ] add functionality to handle 3-step link parsing: official site -> download page -> download link
+- [ ] add functionality to handle 3-hop link parsing: official site -> download page -> download link
 
 ## Prerequisites
 
