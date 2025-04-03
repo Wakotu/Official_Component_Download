@@ -29,3 +29,7 @@ username = "yangqiaoyang"
 ```bash
 ./run.sh
 ```
+
+## Output
+
+通过 LLM 查询到的下载页面地址会被保存到`Official/site_url_list.json` 文件中。
