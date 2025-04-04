@@ -1,9 +1,15 @@
+use std::time::Duration;
+
 use color_eyre::eyre::Result;
 use colored::*;
-use reqwest::{Client, Method, Url};
+use eyre::bail;
+use reqwest::{Client, Method, Response, Url};
 use tokio::sync::Semaphore;
 
-use crate::llm_api::config::get_parralel_count;
+use crate::llm_api::{
+    config::{get_api_check_retry, get_api_retry_delay, get_api_timeout, get_parralel_count},
+    entities::ReqBody,
+};
 
 fn my_format(
     write: &mut dyn std::io::Write,
@@ -37,18 +43,32 @@ pub fn init_flexi_logger() -> Result<()> {
 /// return accessibility along with resutl url
 pub async fn is_url_accessible(url: &str) -> (bool, Option<String>) {
     let client = Client::new();
-    let response = client
-        .request(Method::HEAD, url) // Use HEAD request for efficiency
-        .timeout(std::time::Duration::from_secs(10)) // Optional: Set a timeout
-        .send()
-        .await;
+    let retry = get_api_check_retry();
+    let delay = get_api_retry_delay();
+    let time_out = get_api_timeout();
 
-    if let Ok(resp) = response {
-        let url = resp.url().to_string();
-        (resp.status().is_success(), Some(url))
-    } else {
-        (false, None)
+    for _ in 0..retry {
+        let resp = client
+            .request(Method::HEAD, url) // Use HEAD request for efficiency
+            .timeout(std::time::Duration::from_secs(time_out as u64)) // Optional: Set a timeout
+            .send()
+            .await;
+
+        if let Ok(resp) = resp {
+            let url = resp.url().to_string();
+            return (resp.status().is_success(), Some(url));
+        } else {
+            log::warn!(
+                "Url Access Check: failed to access url {}, retry after {} seconds...",
+                url,
+                delay
+            );
+            tokio::time::sleep(Duration::from_secs(delay as u64)).await;
+            continue;
+        }
     }
+
+    (false, None)
 }
 
 pub fn init_report_utils() -> Result<()> {
@@ -65,4 +85,69 @@ pub fn is_absolute_url(url: &str) -> bool {
 pub fn construct_semaphore() -> Semaphore {
     let max_concur = get_parralel_count();
     Semaphore::new(max_concur)
+}
+
+pub async fn get_with_retry(
+    cli: &Client,
+    url: &str,
+    retry: usize,
+    retry_delay: usize,
+) -> Result<Response> {
+    let mut att = 0;
+
+    while att < retry {
+        att += 1;
+
+        let resp_res = cli.get(url).send().await;
+        match resp_res {
+            Err(e) => {
+                log::warn!("Failed to request url {}: {}.", url, e);
+                log::warn!("Retry after {} seconds...", retry_delay);
+                tokio::time::sleep(Duration::from_secs(retry_delay as u64)).await;
+                continue;
+            }
+            Ok(resp) => {
+                return Ok(resp);
+            }
+        }
+    }
+
+    bail!(
+        "Failed to get to get reponse from url {} with max retry of {}",
+        url,
+        retry
+    );
+}
+
+pub async fn post_with_retry(
+    cli: &Client,
+    url: &str,
+    payload: &ReqBody,
+    retry: usize,
+    retry_delay: usize,
+) -> Result<Response> {
+    let mut att = 0;
+
+    while att < retry {
+        att += 1;
+
+        let resp_res = cli.post(url).json(payload).send().await;
+        match resp_res {
+            Err(e) => {
+                log::warn!("Failed to request url {}: {}.", url, e);
+                log::warn!("Retry after {} seconds...", retry_delay);
+                tokio::time::sleep(Duration::from_secs(retry_delay as u64)).await;
+                continue;
+            }
+            Ok(resp) => {
+                return Ok(resp);
+            }
+        }
+    }
+
+    bail!(
+        "Failed to get to get reponse from url {} with max retry of {}",
+        url,
+        retry
+    );
 }

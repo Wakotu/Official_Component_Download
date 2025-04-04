@@ -2,8 +2,11 @@ use std::{str::FromStr, sync::Arc};
 
 use crate::{
     config::get_ver_cnt,
-    llm_api::get_llm_completion,
-    utils::{construct_semaphore, is_absolute_url, is_url_accessible},
+    llm_api::{
+        config::{get_api_retry, get_api_retry_delay},
+        get_llm_completion,
+    },
+    utils::{construct_semaphore, get_with_retry, is_absolute_url, is_url_accessible},
 };
 use color_eyre::eyre::Result;
 use entities::DLEntry;
@@ -44,7 +47,7 @@ Please reply with a simple yes or no.
 async fn get_page_content(page_url: &str) -> Result<String> {
     let cli = Client::new();
     log::info!("fetch content for page {}", page_url);
-    let resp = cli.get(page_url).send().await?;
+    let resp = get_with_retry(&cli, page_url, get_api_retry(), get_api_retry_delay()).await?;
     let text = resp.text().await?;
     Ok(text)
 }

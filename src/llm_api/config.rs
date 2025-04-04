@@ -9,7 +9,9 @@ pub struct ApiConfig {
     temperature: f64,
     parallel: usize,
     retry: usize,
+    check_retry: u64,
     retry_delay: usize,
+    time_out: usize,
 }
 
 pub fn get_temperature() -> &'static f64 {
@@ -45,4 +47,14 @@ pub fn get_api_retry() -> usize {
 pub fn get_api_retry_delay() -> usize {
     let config = load_config();
     config.api.retry_delay
+}
+
+pub fn get_api_timeout() -> usize {
+    let config = load_config();
+    config.api.time_out
+}
+
+pub fn get_api_check_retry() -> u64 {
+    let config = load_config();
+    config.api.check_retry
 }

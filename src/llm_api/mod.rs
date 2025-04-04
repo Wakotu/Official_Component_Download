@@ -3,12 +3,9 @@ use config::{
 };
 use entities::{LLMMsg, ReqBody, RespBody};
 use eyre::bail;
-use reqwest::{
-    Response,
-    header::{HeaderMap, HeaderValue},
-};
+use reqwest::header::{HeaderMap, HeaderValue};
 use search::{is_search_api, show_search_resp_content};
-use std::{sync::OnceLock, time::Duration};
+use std::sync::OnceLock;
 
 use color_eyre::eyre::Result;
 use reqwest::{
@@ -16,42 +13,11 @@ use reqwest::{
     header::{AUTHORIZATION, CONTENT_TYPE},
 };
 
+use crate::utils::post_with_retry;
+
 pub mod config;
 pub mod entities;
 pub mod search;
-
-async fn post_with_retry(
-    cli: &Client,
-    url: &str,
-    payload: &ReqBody,
-    retry: usize,
-    retry_delay: usize,
-) -> Result<Response> {
-    let mut att = 0;
-
-    while att < retry {
-        att += 1;
-
-        let resp_res = cli.post(url).json(payload).send().await;
-        match resp_res {
-            Err(e) => {
-                log::warn!("Failed to request url {}: {}.", url, e);
-                log::warn!("Retry after {} seconds", retry_delay);
-                tokio::time::sleep(Duration::from_secs(retry_delay as u64)).await;
-                continue;
-            }
-            Ok(resp) => {
-                return Ok(resp);
-            }
-        }
-    }
-
-    bail!(
-        "Failed to get to get reponse from url {} with max retry of {}",
-        url,
-        retry
-    );
-}
 
 pub async fn get_llm_completion(query: &str) -> Result<String> {
     let model_id = get_model_id();
@@ -98,7 +64,6 @@ fn get_llm_api_client() -> &'static Client {
         }
     })
 }
-
 fn construct_llm_api_client() -> Result<Client> {
     let mut headers = HeaderMap::new();
     let api_key = get_api_key();
