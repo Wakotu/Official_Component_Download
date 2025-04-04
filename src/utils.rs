@@ -1,6 +1,6 @@
 use color_eyre::eyre::Result;
 use colored::*;
-use reqwest::Url;
+use reqwest::{Client, Method, Url};
 use tokio::sync::Semaphore;
 
 use crate::llm_api::config::get_parralel_count;
@@ -32,6 +32,23 @@ pub fn init_flexi_logger() -> Result<()> {
         .format(my_format)
         .start()?;
     Ok(())
+}
+
+/// return accessibility along with resutl url
+pub async fn is_url_accessible(url: &str) -> (bool, Option<String>) {
+    let client = Client::new();
+    let response = client
+        .request(Method::HEAD, url) // Use HEAD request for efficiency
+        .timeout(std::time::Duration::from_secs(10)) // Optional: Set a timeout
+        .send()
+        .await;
+
+    if let Ok(resp) = response {
+        let url = resp.url().to_string();
+        (resp.status().is_success(), Some(url))
+    } else {
+        (false, None)
+    }
 }
 
 pub fn init_report_utils() -> Result<()> {

@@ -1,7 +1,9 @@
 use color_eyre::eyre::Result;
 use regex::Regex;
-use reqwest::{Client, Method, Url};
+use reqwest::Url;
 use serde::{Deserialize, Serialize};
+
+use crate::utils::is_url_accessible;
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct PageAns {
@@ -23,7 +25,7 @@ impl PageAns {
         }
 
         let url = self.site_url.as_ref().unwrap().clone();
-        let (flag, url_op) = Self::is_url_accessible(&url).await;
+        let (flag, url_op) = is_url_accessible(&url).await;
         if !flag {
             log::warn!(
                 "url {} of component {} is not accessible",
@@ -58,23 +60,6 @@ impl PageAns {
                 panic!("Get url from an unavailable PageAns");
             })
             .clone()
-    }
-
-    /// return accessibility along with resutl url
-    async fn is_url_accessible(url: &str) -> (bool, Option<String>) {
-        let client = Client::new();
-        let response = client
-            .request(Method::HEAD, url) // Use HEAD request for efficiency
-            .timeout(std::time::Duration::from_secs(10)) // Optional: Set a timeout
-            .send()
-            .await;
-
-        if let Ok(resp) = response {
-            let url = resp.url().to_string();
-            (resp.status().is_success(), Some(url))
-        } else {
-            (false, None)
-        }
     }
 
     fn is_official_url(url: &str) -> Result<bool> {

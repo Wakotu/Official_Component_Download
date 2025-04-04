@@ -3,7 +3,7 @@ use std::{str::FromStr, sync::Arc};
 use crate::{
     config::get_ver_cnt,
     llm_api::get_llm_completion,
-    utils::{construct_semaphore, is_absolute_url},
+    utils::{construct_semaphore, is_absolute_url, is_url_accessible},
 };
 use color_eyre::eyre::Result;
 use entities::DLEntry;
@@ -125,8 +125,18 @@ impl DLEntryPool {
             return Ok(false);
         }
 
+        let (flag, _) = is_url_accessible(url).await;
+        if !flag {
+            log::warn!(
+                "extracted link {} for component {} is not accessible",
+                url,
+                comp_name
+            );
+            return Ok(false);
+        }
+
         let prompt_tempalate = r#"
-Is the download URL {{url}} for the source code of the open-source component {{comp_name}}?
+Does the URL {{url}} point to a compressed package containing the source code of the open-source component {{component}}?
 Please reply with a simple 'yes' or 'no'.
         "#;
         let reg = Handlebars::new();

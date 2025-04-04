@@ -3,7 +3,7 @@ use entities::{LLMMsg, ReqBody, RespBody};
 use eyre::bail;
 use reqwest::header::{HeaderMap, HeaderValue};
 use search::{is_search_api, show_search_resp_content};
-use std::{fmt::Write, sync::OnceLock};
+use std::sync::OnceLock;
 
 use color_eyre::eyre::Result;
 use reqwest::{
