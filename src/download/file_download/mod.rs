@@ -9,6 +9,7 @@ use crate::utils::construct_semaphore;
 use super::download_link::{DLEntryPool, entities::DLEntry};
 use color_eyre::eyre::Result;
 use eyre::bail;
+use futures::StreamExt;
 use path::{create_dir_if_nonexist, get_offical_dl_dir};
 use reqwest::Client;
 use tokio::{io::AsyncWriteExt, sync::Semaphore};
@@ -98,10 +99,16 @@ impl DLEntry {
         if !resp.status().is_success() {
             bail!("Failed to download {}", url);
         }
+        log::info!("Download {} to {:?}", url, fpath);
 
         let mut file = tokio::fs::File::create(fpath).await?;
-        let content = resp.bytes().await?;
-        file.write_all(&content).await?;
+        let mut stream = resp.bytes_stream();
+
+        while let Some(chunk) = stream.next().await {
+            let chunk = chunk?;
+            file.write_all(&chunk).await?;
+        }
+        file.flush().await?;
 
         Ok(())
     }
