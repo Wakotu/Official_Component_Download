@@ -45,9 +45,15 @@ pub fn get_offical_dl_dir() -> Result<PathBuf> {
     Ok(ofi_dir)
 }
 
-pub fn get_official_site_url_file_path() -> Result<PathBuf> {
+pub fn get_official_available_page_fpath() -> Result<PathBuf> {
     let ofi_dir = get_offical_dl_dir()?;
-    let fpath = ofi_dir.join("site_url_list.json");
+    let fpath = ofi_dir.join("available_url_list.json");
+    Ok(fpath)
+}
+
+pub fn get_official_abnormal_page_fpath() -> Result<PathBuf> {
+    let ofi_dir = get_offical_dl_dir()?;
+    let fpath = ofi_dir.join("abnormal_url_list.json");
     Ok(fpath)
 }
 

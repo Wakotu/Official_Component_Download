@@ -4,7 +4,7 @@ use official_download::{download::download_link::DLEntryPool, utils::init_report
 #[tokio::main]
 async fn main() -> Result<()> {
     init_report_utils()?;
-    let pool =
+    let (pool, _) =
         DLEntryPool::from_page_url("https://www.wireshark.org/download.html", "wireshark").await?;
     log::debug!(
         "len of pool: {}, example entry: {:?}",
@@ -12,7 +12,7 @@ async fn main() -> Result<()> {
         pool.entries[0]
     );
 
-    let pool =
+    let (pool, _) =
         DLEntryPool::from_page_url("https://ftp.gnu.org/gnu/coreutils/", "coreutils").await?;
 
     log::debug!(

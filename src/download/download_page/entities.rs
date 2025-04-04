@@ -3,11 +3,13 @@ use regex::Regex;
 use reqwest::{Client, Method, Url};
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct PageAns {
     component_name: String,
     available: bool,
     site_url: Option<String>,
+    #[serde(skip_deserializing, default)]
+    pub abnoarmal: bool,
 }
 
 impl PageAns {
@@ -45,6 +47,7 @@ impl PageAns {
             component_name: self.component_name.clone(),
             available: true,
             site_url: Some(res_url),
+            abnoarmal: false,
         }))
     }
 

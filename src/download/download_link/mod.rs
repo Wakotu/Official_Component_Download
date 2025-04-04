@@ -13,6 +13,8 @@ use scraper::{Html, Selector};
 use serde_json::json;
 use tokio::sync::Semaphore;
 
+use super::download_page::entities::PageAns;
+
 pub mod entities;
 
 async fn is_url_related_to_comp(url: &str, comp_name: &str) -> Result<bool> {
@@ -170,7 +172,14 @@ Please reply with a simple 'yes' or 'no'.
         Ok(ent)
     }
 
-    pub async fn from_page_url(page_url: &str, comp_name: &str) -> Result<Self> {
+    pub async fn from_page(page_ans: &mut PageAns, comp_name: &str) -> Result<Self> {
+        let page_url = page_ans.get_url();
+        let (dl_pool, abn) = Self::from_page_url(&page_url, comp_name).await?;
+        page_ans.abnoarmal = abn;
+        Ok(dl_pool)
+    }
+
+    pub async fn from_page_url(page_url: &str, comp_name: &str) -> Result<(Self, bool)> {
         let content = get_page_content(page_url).await?;
         let url_list = get_all_links(&content, page_url)?;
         let mut pool = Self {
@@ -217,6 +226,8 @@ Please reply with a simple 'yes' or 'no'.
         let cnt = get_ver_cnt();
         pool.entries.sort_by(|a, b| b.cmp(a));
 
+        let abn = pool.is_empty();
+
         let entries = if pool.len() > cnt {
             pool.entries[0..cnt].to_vec()
         } else {
@@ -233,6 +244,6 @@ Please reply with a simple 'yes' or 'no'.
             comp_name: comp_name.to_string(),
         };
 
-        Ok(res_pool)
+        Ok((res_pool, abn))
     }
 }
