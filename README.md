@@ -28,4 +28,5 @@ username = "yangqiaoyang"
 
 ## Output
 
-通过 LLM 查询到的下载页面地址会被保存到`Official/site_url_list.json` 文件中。
+通过 LLM 查询到的下载页面地址会被保存到 `Official/available_url_list.json` 文件中。
+从页面中找不到下载链接的下载页面地址会被保存到 `Official/abnormal_url_list.` 文件中。
