@@ -8,6 +8,8 @@ pub struct ApiConfig {
     api_url: String,
     temperature: f64,
     parallel: usize,
+    retry: usize,
+    retry_delay: usize,
 }
 
 pub fn get_temperature() -> &'static f64 {
@@ -33,4 +35,14 @@ pub fn get_model_id() -> &'static str {
 pub fn get_parralel_count() -> usize {
     let config = load_config();
     config.api.parallel
+}
+
+pub fn get_api_retry() -> usize {
+    let config = load_config();
+    config.api.retry
+}
+
+pub fn get_api_retry_delay() -> usize {
+    let config = load_config();
+    config.api.retry_delay
 }
