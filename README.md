@@ -18,7 +18,7 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```toml
 [download]
 username = "your_name"
-base_dir = "/mnt/opensource_collection"
+base_dir = "path/to/dest"
 
 [api]
 key = "xxxxxx"
