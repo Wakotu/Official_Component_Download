@@ -13,11 +13,17 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 ## Usage
 
-将 `config/config.toml` 中的 `username` 值修改为你的名字
+创建`config/config.toml` 。具体格式参照 `config/config_demo.toml`。需要指定的域包括如下几项：
 
 ```toml
 [download]
-username = "yangqiaoyang"
+username = "your_name"
+base_dir = "/mnt/opensource_collection"
+
+[api]
+key = "xxxxxx"
+api_url = "xxxxxx"
+model_id = "your model id" # e.g. "chatgpt-3.5-turbo"
 ```
 
 运行 `run.sh`
