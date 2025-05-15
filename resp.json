@@ -16,7 +16,7 @@
   "bot_usage": {
     "model_usage": [
       {
-        "name": "ep-20250317172204-mr57z",
+        "name": "ep--mr57z",
         "prompt_tokens": 2490,
         "completion_tokens": 374,
         "total_tokens": 2864
